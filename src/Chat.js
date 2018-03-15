@@ -11,7 +11,7 @@ export default class Chat extends Component {
       message: '',
       messages: [],
     }
-    this.socket = io('localhost:8080')
+    this.socket = io.connect('localhost:8080')
     this.socket.on('RECEIVE_MESSAGE', userData => {
       this.addMessage(userData)
     })
