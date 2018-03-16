@@ -10,7 +10,13 @@ const io = socket(server) // initialize a new instance of socket.io by passing t
 io.on('connection', socket => {
   console.log(socket.id)
 
+  socket.on('ROOM', user => {
+    socket.join(user.room)
+    console.log(`${user.author} joins room ${user.room}`)
+  })
+
   socket.on('SEND_MESSAGE', userData => {
-    io.emit('RECEIVE_MESSAGE', userData)
+    console.log('SEND_MESSAGE')
+    io.to(userData.room).emit('RECEIVE_MESSAGE', userData)
   })
 })
